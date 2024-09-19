@@ -1,5 +1,10 @@
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 exports.login = async (req, res) => {
-    const { token } = req.body;
+    const { id } = req.body;
+    
+    const token = jwt.sign({ id: id, role: 'user' }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
     
     res.cookie('token', token, {
         httpOnly: true,
