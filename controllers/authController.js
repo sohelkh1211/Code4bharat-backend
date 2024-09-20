@@ -30,3 +30,17 @@ exports.admin_login = async (req, res) => {
 
     res.status(200).json({ message: "Logged In Successful" });
 }
+
+exports.logout = async (req, res) => {
+    try {
+        res.clearCookie('token', {
+            secure: true,
+            httpOnly: true,
+            sameSite: 'strict'
+        });
+        res.status(200).json({ message: "Successfully Logged out" });
+    }
+    catch(error) {
+        res.status(400).json({ error: error.message });
+    }
+}
